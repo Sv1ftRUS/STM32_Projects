@@ -1183,7 +1183,7 @@ HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pD
       }
       else
       {
-        huart->Instance->DR = (uint8_t)(*pdata8bits & 0xFFU);
+        huart->Instance->DR = *pdata8bits;
         pdata8bits++;
       }
       huart->TxXferCount--;
