@@ -47,7 +47,8 @@ UART_HandleTypeDef huart2;
 //uint8_t uart2_dataArr[8]={0x01, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77};
 uint8_t uart2_dataArr[8]={0, 1, 2, 3, 0, 1, 2, 3};
 //uint8_t uart2_dataArr[]="Hello\n\r";
-uint8_t str[]="USART Transmit\r\n";
+uint8_t str_Tx[]="USART Transmit";
+uint8_t str_Rx[32];
 uint8_t uart2_data2=0x41;
 uint8_t *uart2_data2Ptr=&uart2_data2;
 /* USER CODE END PV */
@@ -104,13 +105,11 @@ int main(void)
   while (1)
   {
 		HAL_GPIO_TogglePin(LED1_Pin_GPIO_Port, LED1_Pin_Pin);
-		HAL_Delay(100);
-		//HAL_UART_Transmit(&huart2, uart2_dataArr, 8, 100);
-		//HAL_UART_Transmit(&huart2, str, 16, 0xFFFF);
-
-		HAL_UART_Transmit(&huart2, uart2_data2Ptr, 1, 1000);
-		//TX(МК плата) 11- 14 - 5- RX(компьютер) коричн
-		//RX(МК плата) 12-13 - 3 - TX(компьютер) черн
+		HAL_UART_Receive (&huart2, str_Rx, sizeof(str_Rx), 1000);
+		HAL_Delay(1000);
+		HAL_UART_Transmit(&huart2, str_Tx, sizeof(str_Tx), 1000);
+		//TX(МК плата) 11- 14 - 5- RX(компьютер) коричн//каб rs232 - 2
+		//RX(МК плата) 12-13 - 3 - TX(компьютер) черн//каб rs232 - 3
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
